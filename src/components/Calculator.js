@@ -7,7 +7,7 @@ class Calculator extends Component {
 		super(props);
 		this.state = {
 			displayOnScreen:[],
-			curVal:null,
+			curVal:[],
 			operator:false,
 			result:null
 		};
@@ -36,7 +36,9 @@ class Calculator extends Component {
 
 	handleCurvalChange(val,btnType){
 		let updatedDisplaVal;
+		let updatedCurVal;
 		let display = [...this.state.displayOnScreen];
+		let curVal = [...this.state.curVal];
 		let len = display.length;
 		let opArray = ["+","-","x","÷"];
 		if(btnType === "number" && display[len - 1] === 0 
@@ -46,10 +48,11 @@ class Calculator extends Component {
 
 		if(len === 0 ){
 			updatedDisplaVal = display.concat(val);
+			updatedCurVal = curVal.concat(val).join("");
 			this.setState({
 				...this.state,
 				displayOnScreen:updatedDisplaVal,
-				curVal:updatedDisplaVal,
+				curVal:updatedCurVal,
 				operator:true
 			});
 		}else if(len > 0 ){
@@ -57,10 +60,11 @@ class Calculator extends Component {
 				return;
 			}
 			updatedDisplaVal = display.concat(val);
+			updatedCurVal = curVal.concat(val).join("");
 			this.setState({
 				...this.state,
 				displayOnScreen:updatedDisplaVal,
-				curVal:updatedDisplaVal,
+				curVal:updatedCurVal,
 				operator:true
 			});
 		}
@@ -70,12 +74,14 @@ class Calculator extends Component {
 		let display = [...this.state.displayOnScreen];
 		let len = display.length;
 		let updatedDisplaVal;
+		let updatedCurVal = [...this.state.curVal];
+		updatedCurVal.length = 0;
 		if(len === 0 && op === "-"){
 			updatedDisplaVal = display.concat(op);
 			this.setState({
 				...this.state,
 				displayOnScreen:updatedDisplaVal,
-				curVal:op,
+				curVal:updatedCurVal,
 				operator:false
 			});
 		}else if(this.state.displayOnScreen && this.state.operator && display[len - 1] !== "." ){
@@ -83,34 +89,48 @@ class Calculator extends Component {
 			this.setState({
 				...this.state,
 				displayOnScreen:updatedDisplaVal,
-				curVal:op,
+				curVal:updatedCurVal,
 				operator:false
 			});
 		}
 	}
 
+	decimalInEquation(val){
+		return /\./.test(val);
+	}
+
 	handleDecimal(decimal){
 		let display = [...this.state.displayOnScreen];
+		let curVal = [...this.state.curVal];
 		let len = display.length;
 		let updatedDisplaVal;
+		let updatedCurVal;
 		let disableArray = ["+","-","x","÷","."];
-		if(len !== 0  && (disableArray.indexOf(display[len - 1])) === -1){
+		if(len !== 0  && (disableArray.indexOf(display[len - 1])) === -1  ){
 			updatedDisplaVal = display.concat(decimal);
-			this.setState({
-				...this.state,
-				displayOnScreen:updatedDisplaVal
-			});
+
+			if(!this.decimalInEquation(curVal)){
+				updatedCurVal = curVal.concat(decimal).join("");
+				this.setState({
+					...this.state,
+					displayOnScreen:updatedDisplaVal,
+					curVal:updatedCurVal
+				});			
+			}
+		
 		}
 	}
 
 	handleClearScreen(){
 		if(this.state.displayOnScreen.length !== 0){
-			let display = [...this.state.displayOnScreen];
-			display.length = 0;
+			let updatedDisplaVal = [...this.state.displayOnScreen];
+			let updatedCurVal = [...this.state.curVal];
+			updatedDisplaVal.length = 0;
+			updatedCurVal.length = 0;
 			this.setState({
 				...this.state,
-				displayOnScreen:display,
-				curVal:null,
+				displayOnScreen:updatedDisplaVal,
+				curVal:updatedCurVal,
 				operator:"",
 				result:""
 			});
@@ -131,10 +151,12 @@ class Calculator extends Component {
 			let evalResultString = display.join("").replace(/x/g, "*").replace(/÷/g, "/");
 			let evalResult = eval(evalResultString);
 			evalResult = this.handleRounding(evalResult);
-			evalResult = [].concat(evalResult);
+			evalResult = evalResult.toString().split("");
+			let updatedCurVal = evalResult.join("");
 			this.setState({
 				...this.state,
-				displayOnScreen:evalResult
+				displayOnScreen:evalResult,
+				curVal:updatedCurVal,
 			});
 		}
 	}

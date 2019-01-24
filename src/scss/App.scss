@@ -21,7 +21,6 @@
 	border-radius: 3px;
 	padding-right: 10px;
 	box-shadow: inset 0px 4px rgba(0, 0, 0, 0.2);
-	// font-size: 24px;
 	line-height: 40px;
 	color: #ffffff;
 	text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
@@ -54,9 +53,13 @@
 
 .keys span{
 	@include spanBasic;
-	&.operator{
+	&.operator {
 		background: #6b54d3;
 		margin-right: 0;
+	}
+
+	&.eval {
+		background: #6b54d3;
 	}
 
 	&:hover{
@@ -66,35 +69,27 @@
 	}
 
 	&:active {
-    transform: translateY(5px);
+    box-shadow: inset 4px 4px #6b54d3;
   }
-
-	&.eval{
-		background: #6b54d3;
-		box-shadow: 0px 4px #6b54d3;
-		box-shadow: 0px 4px rgba(0, 0, 0, 0.2);
-		color: #ffffff;
-		&:hover{
-			background: #9c89f6;
-		box-shadow: 0px 4px #6b54d3;
-			color: #ffffff;
-		}
-	}
 }
 
 .top span{
 	@include spanBasic;
+
 	&.clear{
 		background: #ff9fa8;
 		box-shadow: 0px 4px #ff7c87;
 		color: white;
 	}
-	&:active {
-    transform: translateY(5px);
-  }
+
 	&:hover{
 		background: #f68991;
-		box-shadow: 0px 4px #d3545d;
+		box-shadow: 0px 4px #f04250;
 		color: white;
 	}
+
+	&:active {
+    box-shadow: inset 4px 4px  #f04250;
+	}
+	
 }
