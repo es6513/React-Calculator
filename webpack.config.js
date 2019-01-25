@@ -3,7 +3,7 @@ const createLodashAliases = require("lodash-loader").createLodashAliases;
 module.exports = {
 	output: {
 		path: __dirname,
-		filename: 'index.js'
+		filename: "index.js"
 	},
 	module: {
 		rules: [
