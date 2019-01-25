@@ -1,7 +1,13 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const createLodashAliases = require("lodash-loader").createLodashAliases;
 module.exports = {
+	entry: "./src/index.js",
+	output: {
+		path: __dirname + "./dist",
+		filename: "main.js"
+	},
 	module: {
+	
 		rules: [
 			{
 				enforce: "pre",
@@ -53,7 +59,8 @@ module.exports = {
 	resolve: {alias: createLodashAliases()},
 	devServer: {
 		historyApiFallback: true,
-		contentBase: "./dist"
+		contentBase: "./dist",
+		port:8080
 	},
 	plugins: [
 		new HtmlWebPackPlugin({
