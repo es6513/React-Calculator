@@ -1,5 +1,6 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const createLodashAliases = require("lodash-loader").createLodashAliases;
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 module.exports = {
 	entry: "./src/index.js",
 	output: {
@@ -63,6 +64,9 @@ module.exports = {
 		port:8080
 	},
 	plugins: [
+		new CopyWebpackPlugin([
+			{ from: "./src/index.html" }
+		]),
 		new HtmlWebPackPlugin({
 			template: "./src/index.html",
 			filename: "./index.html"
