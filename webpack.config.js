@@ -1,21 +1,12 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const createLodashAliases = require("lodash-loader").createLodashAliases;
-const CopyWebpackPlugin = require("copy-webpack-plugin");
 module.exports = {
-	entry: "./src/index.js",
 	output: {
-		path: __dirname + "./dist",
-		filename: "main.js"
+		path: __dirname,
+		filename: 'index.js'
 	},
 	module: {
-	
 		rules: [
-			{
-				enforce: "pre",
-				test: /\.js$/,
-				exclude: /node_modules/,
-				loader: "eslint-loader",
-			},
 			{
 				test: /\.js$/,
 				exclude: /node_modules/,
@@ -58,19 +49,11 @@ module.exports = {
 		]
 	},
 	resolve: {alias: createLodashAliases()},
-	devServer: {
-		historyApiFallback: true,
-		contentBase: "./dist",
-		port:8080
-	},
+	devServer: {contentBase: "./dist"},
 	plugins: [
-		new CopyWebpackPlugin([
-			{ from: "./src/index.html" }
-		]),
 		new HtmlWebPackPlugin({
 			template: "./src/index.html",
-			filename: "./index.html",
-			favicon: "src/logo.png",
+			filename: "./index.html"
 		})
 	]
 };
