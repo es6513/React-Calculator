@@ -1,39 +1,6 @@
-#calculator{
-	width: 500px;
-	height: auto;
-	margin: 30px auto;
-	padding: 10px 10px;
-	background: #ffffff;
-	border-radius: 20px;
-	box-shadow: 0px 4px #3F4656, 0px 10px 15px rgba(0, 0, 0, 0.2);
-	outline:0px;
-}
-
-.top{
-  display: flex;
-  justify-content: center;
-}
-
-.top .screen{
-  height: 40px;
-	width: 300px;
-  background: rgba(0, 0, 0, 0.5);
-	border-radius: 3px;
-	padding-right: 10px;
-	box-shadow: inset 0px 4px rgba(0, 0, 0, 0.2);
-	line-height: 40px;
-	color: #ffffff;
-	text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-	text-align: right;
-	letter-spacing: 1px;
-}
-
-.keys{
-  margin-top: 10px; 
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
+$shadowColor:rgba(0, 0, 0, 0.2);
+$operatorColor:#6b54d3;
+$fontColor:#ffffff;
 
 @mixin spanBasic {
 	display: flex;
@@ -44,52 +11,88 @@
   height: 36px;
   background: #3F4656;
   border-radius: 3px;
-  box-shadow: 0px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 4px $shadowColor;
 	margin: 0 5px 15px 0;
-	color: #ffffff;
+	color: $fontColor;
 	user-select: none;
 	transition: all 0.1s ease;
 }
 
-.keys span{
-	@include spanBasic;
-	&.operator {
-		background: #6b54d3;
-		margin-right: 0;
-	}
-
-	&.eval {
-		background: #6b54d3;
-	}
-
-	&:hover{
-		background: #9c89f6;
-		box-shadow: 0px 4px #6b54d3;
-		color: #ffffff;
-	}
-
-	&:active {
-    box-shadow: inset 4px 4px #6b54d3;
-  }
+#calculator{
+	width: 500px;
+	height: auto;
+	margin: 30px auto;
+	padding: 10px 10px;
+	background: $fontColor;
+	border-radius: 20px;
+	box-shadow: 0px 4px #3F4656, 0px 10px 15px $shadowColor;
+	outline:0px;
 }
 
-.top span{
-	@include spanBasic;
 
-	&.clear{
-		background: #ff9fa8;
-		box-shadow: 0px 4px #ff7c87;
-		color: white;
+.top{
+  display: flex;
+  justify-content: center;
+	.screen{
+		height: 40px;
+		width: 300px;
+		background: rgba(0, 0, 0, 0.5);
+		border-radius: 3px;
+		padding-right: 10px;
+		box-shadow: inset 0px 4px $shadowColor;
+		line-height: 40px;
+		color: $fontColor;
+		text-shadow: 1px 1px 2px $shadowColor;
+		text-align: right;
+		letter-spacing: 1px;
 	}
+} 
 
-	&:hover{
-		background: #f68991;
-		box-shadow: 0px 4px #f04250;
-		color: white;
-	}
-
-	&:active {
-    box-shadow: inset 4px 4px  #f04250;
-	}
+.keys{
+	margin-top: 10px; 
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+	span{
+		@include spanBasic;
+		&.operator {
+			background: $operatorColor;
+			margin-right: 0;
+		}
 	
+		&.eval {
+			background: $operatorColor;
+		}
+	
+		&:hover{
+			background: #9c89f6;
+			box-shadow: 0px 4px $operatorColor;
+			color: $fontColor;
+		}
+	
+		&:active {
+			box-shadow: inset 4px 4px $operatorColor;
+		}
+	}
+}
+
+.top {
+	span{
+		@include spanBasic;
+		&.clear{
+			background: #ff9fa8;
+			box-shadow: 0px 4px #ff7c87;
+			color: $fontColor;
+		}
+	
+		&:hover{
+			background: #f68991;
+			box-shadow: 0px 4px #f04250;
+			color: $fontColor;
+		}
+	
+		&:active {
+			box-shadow: inset 4px 4px  #f04250;
+		}
+	}
 }
